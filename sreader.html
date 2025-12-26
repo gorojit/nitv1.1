@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Reader Accessible Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        /* Skip to main content link - for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .controls h2 {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .control-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .toggle-switch {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #27ae60;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .demo-image {
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .demo-form {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        nav {
+            background: #34495e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background: rgba(255,255,255,0.2);
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .status-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background: #d4edda;
+            color: #155724;
+            display: none;
+        }
+
+        .status-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Accessibility Controls -->
+    <aside class="controls" aria-label="Accessibility Controls">
+        <h2>Accessibility</h2>
+        
+        <div class="control-group">
+            <span class="control-label">Text-to-Speech</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="ttsToggle" aria-label="Enable text-to-speech">
+                <span class="slider"></span>
+            </label>
+            <span id="ttsStatus" style="display: block; font-size: 0.8em; margin-top: 5px; color: #666;">Off</span>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">Read Page</span>
+            <button class="btn-primary" onclick="readEntirePage()" aria-label="Read entire page">
+                🔊 Read All
+            </button>
+            <button class="btn-danger" onclick="stopReading()" aria-label="Stop reading">
+                ⏹️ Stop
+            </button>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">Speech Rate</span>
+            <button class="btn-success" onclick="changeSpeechRate(-0.2)" aria-label="Decrease speech rate">
+                Slower
+            </button>
+            <button class="btn-success" onclick="changeSpeechRate(0.2)" aria-label="Increase speech rate">
+                Faster
+            </button>
+        </div>
+    </aside>
+
+    <!-- Navigation -->
+    <nav aria-label="Main navigation">
+        <ul role="menubar">
+            <li role="none"><a href="#" role="menuitem">Home</a></li>
+            <li role="none"><a href="#" role="menuitem">About</a></li>
+            <li role="none"><a href="#" role="menuitem">Services</a></li>
+            <li role="none"><a href="#" role="menuitem">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="content">
+        <h1>Screen Reader Accessible Webpage</h1>
+        
+        <div class="status-message" id="statusMessage" role="status" aria-live="polite"></div>
+
+        <p>
+            This page demonstrates how to make a webpage accessible for screen readers.
+            Toggle the text-to-speech feature in the top-right corner to hear the content read aloud.
+        </p>
+
+        <section aria-labelledby="what-is-sr">
+            <h2 id="what-is-sr">What is a Screen Reader?</h2>
+            
+            <p>
+                A screen reader is assistive technology that helps people with visual impairments
+                navigate and interact with digital content. It converts text and other elements
+                into speech or Braille.
+            </p>
+        </section>
+
+        <section aria-labelledby="accessibility-features">
+            <h2 id="accessibility-features">Accessibility Features on This Page</h2>
+            
+            <ul>
+                <li><strong>Semantic HTML:</strong> Proper heading structure and landmarks</li>
+                <li><strong>ARIA Labels:</strong> Descriptive labels for interactive elements</li>
+                <li><strong>Alt Text:</strong> Images have descriptive alternative text</li>
+                <li><strong>Keyboard Navigation:</strong> All features accessible via keyboard</li>
+                <li><strong>Text-to-Speech:</strong> Built-in speech synthesis</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="demo-image-section">
+            <h2 id="demo-image-section">Image with Alt Text</h2>
+            <div 
+                class="demo-image" 
+                role="img" 
+                aria-label="A colorful gradient background displaying sample visual content">
+                Demo Image
+            </div>
+        </section>
+
+        <section aria-labelledby="demo-form-section">
+            <h2 id="demo-form-section">Accessible Form Example</h2>
+            
+            <form class="demo-form" aria-labelledby="demo-form-section">
+                <div class="form-group">
+                    <label for="name">Name <span aria-label="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        aria-required="true"
+                        aria-describedby="name-hint">
+                    <span id="name-hint" class="sr-only">Please enter your full name</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span aria-label="required">*</span></label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        aria-required="true"
+                        aria-describedby="email-hint">
+                    <span id="email-hint" class="sr-only">Please enter a valid email address</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        rows="4"
+                        aria-describedby="message-hint"></textarea>
+                    <span id="message-hint" class="sr-only">Optional message or comments</span>
+                </div>
+
+                <button type="submit" class="btn-primary">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // Text-to-Speech functionality
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let ttsEnabled = false;
+        let speechRate = 1.0;
+
+        // Toggle TTS on/off
+        document.getElementById('ttsToggle').addEventListener('change', function(e) {
+            ttsEnabled = e.target.checked;
+            document.getElementById('ttsStatus').textContent = ttsEnabled ? 'On' : 'Off';
+            showStatus(ttsEnabled ? 'Text-to-speech enabled' : 'Text-to-speech disabled');
+            
+            if (ttsEnabled) {
+                enableHoverToRead();
+            } else {
+                disableHoverToRead();
+                stopReading();
+            }
+        });
+
+        // Enable reading on hover/focus
+        function enableHoverToRead() {
+            document.querySelectorAll('p, h1, h2, h3, li, button, a, label').forEach(el => {
+                el.addEventListener('mouseenter', readElement);
+                el.addEventListener('focus', readElement);
+            });
+        }
+
+        // Disable hover reading
+        function disableHoverToRead() {
+            document.querySelectorAll('p, h1, h2, h3, li, button, a, label').forEach(el => {
+                el.removeEventListener('mouseenter', readElement);
+                el.removeEventListener('focus', readElement);
+            });
+        }
+
+        // Read individual element
+        function readElement(e) {
+            if (!ttsEnabled) return;
+            
+            stopReading();
+            
+            let text = e.target.textContent.trim();
+            if (text) {
+                speak(text);
+            }
+        }
+
+        // Read entire page
+        function readEntirePage() {
+            stopReading();
+            
+            let content = document.getElementById('main-content');
+            let text = content.textContent
+                .replace(/\s+/g, ' ')
+                .trim();
+            
+            speak(text);
+            showStatus('Reading entire page');
+        }
+
+        // Stop reading
+        function stopReading() {
+            speechSynthesis.cancel();
+            currentUtterance = null;
+        }
+
+        // Change speech rate
+        function changeSpeechRate(delta) {
+            speechRate = Math.max(0.5, Math.min(2.0, speechRate + delta));
+            showStatus(`Speech rate: ${speechRate.toFixed(1)}x`);
+        }
+
+        // Core speech function
+        function speak(text) {
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.rate = speechRate;
+            currentUtterance.pitch = 1;
+            currentUtterance.volume = 1;
+            
+            currentUtterance.onend = function() {
+                currentUtterance = null;
+            };
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        // Show status message
+        function showStatus(message) {
+            let statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.classList.add('show');
+            
+            setTimeout(() => {
+                statusEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showStatus('Form submitted successfully!');
+            speak('Form submitted successfully');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Alt + R = Read page
+            if (e.altKey && e.key === 'r') {
+                e.preventDefault();
+                readEntirePage();
+            }
+            
+            // Alt + S = Stop reading
+            if (e.altKey && e.key === 's') {
+                e.preventDefault();
+                stopReading();
+            }
+            
+            // Alt + T = Toggle TTS
+            if (e.altKey && e.key === 't') {
+                e.preventDefault();
+                document.getElementById('ttsToggle').click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="syllabusgi.css">
+  <title>Syllabus</title>
+  <style>body {
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle, #006400 10%, #013A33 100%);
+  margin: 0;
+  padding: 40px 60px;
+  color: #222;
+}
+
+/* ✅ Side-by-side layout */
+.main-layout {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 50px; 
+}
+
+/* TABLE */
+table {
+  
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th {
+  font-family: Arial, sans-serif;
+  border: 2px solid rgb(214, 210, 210);
+  padding: 10px;
+  /* background-color: #013A33; */
+  color: black;
+}
+
+td {
+  border: 2px solid rgb(214, 210, 210);
+  padding: 10px;
+}
+
+tr:nth-child(even) { background-color: #f2f2f2; }
+tr:nth-child(odd) { background-color: white; }
+td:hover { background-color: #ddd; }
+
+h1 {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+  border-bottom: 3px solid #0a3d62;
+  padding-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+h1::first-letter {
+  font-size: 50px;
+  color: #034840;
+  font-weight: bold;
+}
+
+h2::first-letter {
+  font-size: 50px;
+  color:  #034840 ;
+  font-weight: bold;
+}
+
+.boxes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px #002A28;
+  padding: 30px 40px;
+  width: 320px;
+  min-height: 260px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li { margin-bottom: 10px; }
+
+a {
+  color: #013A33;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  border-left: 3px solid transparent;
+  padding: 6px 10px;
+  display: block;
+}
+
+a:hover {
+  color: #3db90c;
+  background-color: rgb(230, 230, 230);
+  border-left: 3px solid #3db90c;
+  transform: translateX(4px);
+}
+
+.icon {
+      margin-right: 10px;
+       color: #1e90ff; 
+    }
+
+
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;      
+    align-items: center;         
+  }
+
+  table {
+    width: 100%;           
+    margin: 0 auto;
+    font-size: 14px;      
+  }
+
+  .boxes {
+    width: 100%;           
+    align-items: center;
+  }
+
+  .container {
+    width: 90%;                  
+    max-width: none;        
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 26px;        
+  }
+}</style>
+</head>
+<body>
+
+  
+  <div class="main-layout">
+
+    <div class="table-container">
+      
+
+      <table>
+        <tr>
+            <th  colspan="2" style="border: none;background-color: white;"><h2 style="font-family: Arial, sans-serif;
+  text-align: left;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+  border-bottom: 3px solid  #0a3d62;
+  padding-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 25px;color: #0a3d62;">B.TECH</h2></th>
+            <!-- <th></th> -->
+        </tr>
+        <tr>
+          <th style="background-color: white;">OLD</th>
+          <th style="background-color: white;">NEW</th>
+        </tr>
+        <tr>
+          <td><a href="">Civil Engineering</a></td>
+          <td><a href="">Civil Engineering</a></td>
+        </tr>
+        <tr>
+          <td><a href="">Computer Science & Engineering(Old)</a></td>
+          <td rowspan="2"><a href="">Computer Science & Engineering_2024</a></td>
+        </tr>
+        <tr>
+          <td><a href="">Computer Science & Engineering</a></td>
+        </tr>
+        <tr>
+          <td><a href="">Electronics & Communication Engineering</a></td>
+          <td><a href="">Electronics & Communication Engineering(New)</a></td>
+        </tr>
+        <tr>
+          <td><a href="">Electrical Engineering</a></td>
+          <td><a href="">Electrical Engineering(New)</a></td>
+        </tr>
+        <tr>
+          <td><a href="">Mechanical Engineering</a></td>
+          <td><a href="">Mechanical Engineering(New)</a></td>
+        </tr>
+        <tr>
+          <td><a href=""></a></td>
+          <td><a href="">Mathematics</a></td>
+        </tr>
+        <tr>
+          <td><a href="">Science & Humanities</a></td>
+          <td><a href=""></a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="boxes">
+      <div class="container">
+        <h1>M.TECH</h1>
+        <ul>
+          <li><a href=""><span class="icon">📄</span>Computer Science & Engineering.</a></li>
+          <li><a href=""><span class="icon">📄</span>VLSI & Embedded System.</a></li>
+          <li><a href=""><span class="icon">📄</span>Power & Control System.</a></li>
+          <li><a href=""><span class="icon">📄</span>Civil Engineering (Environmental & Water Resource Engineering)</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        <h1>M.Sc</h1>
+        <ul>
+          <li><a href=""><span class="icon">📄</span>Physics.</a></li>
+          <li><a href=""><span class="icon">📄</span>Chemistry.</a></li>
+          <li><a href=""><span class="icon">📄</span>Mathematics & Computing.</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div> 
+
+</body>
+</html>

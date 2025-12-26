@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+.heading{
+            background: url(heading.jpg);
+            padding: 30px;
+            background-size: 100%;
+            margin-bottom: 2rem;
+            background-repeat: no-repeat;
+            color: white;
+        }
+.container{
+    margin: 0 40px;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.container h1{
+    color: #013A33;
+}
+.container .tab{
+    position: relative;
+    background-color: #013A33;
+    padding: 0 20px 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.container .tab input{
+    appearance: none;
+}
+.container .tab label{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.container .tab label::after{
+    content: "+";
+    position: absolute;
+    right: 20px;
+    font-size: 2rem;
+    color: #c4c4c4;
+    
+}
+.container .tab:hover label::after{
+    color: black;
+}
+.container .tab input:checked ~ label::after{
+    transform: rotate(135deg);
+}
+
+.container .tab label h2{
+    padding-left: 10px;
+    width: 40px;
+    height: 30px;
+    background: #649e73;
+    display: flex;
+    align-items: center;
+    color: aliceblue;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    margin-right: 10px;
+
+}
+.container .tab label h3{
+    position: relative;
+    font-weight: 500;
+    color: white;
+    z-index: 10;
+}
+.container .tab .content{
+    max-height: 0;
+    
+    overflow: hidden;
+}
+.container .tab input:checked ~ .content{
+    max-height: 100vh;
+
+}
+
+.container .tab .content p{
+    
+    color: white;
+}
+@media (max-width: 480px) {
+    .container{
+        margin: 0 10px;
+    }
+    .container .tab{
+        padding: 0 15px 15px;
+    }
+    .container .tab label::after{
+        font-size: 1.5rem;
+        right: 10px;
+    }
+    
+    .container .tab label h2{
+    padding-right: 10px;
+    width: 40px;
+    height: 30px;
+
+
+}
+    
+}

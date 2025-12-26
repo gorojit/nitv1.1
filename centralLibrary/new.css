@@ -1,0 +1,156 @@
+
+*{
+  padding: 0px;
+  margin: 0px;
+}
+body {
+    padding: 0px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  min-height: 100vh;
+  background-color: #20d3e3;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+ background-color: #013A33;
+  padding: 0px;
+  display: flex;
+ 
+ 
+}
+
+
+
+.navigation ul {
+    
+  list-style: none;
+}
+
+.header .navigation ul li {
+  float: left;
+  
+  position: relative;
+}
+
+.header .navigation ul li a {
+ 
+  
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  transition: all .2s ease;
+   font-size: 18px;
+   color: white;
+}
+
+.header .navigation ul li a:hover {
+  background: black;
+}
+
+.header .navigation ul li ul {
+  position: absolute;
+  left: 0;
+  padding-left: 0px;
+  background-color: #3e65e6;
+  width: 180px;
+
+
+  display: none;
+}
+
+
+.header .navigation ul li ul li a {
+  font-size: 15px;
+  text-transform: capitalize;
+}
+
+.header .navigation ul li ul li ul {
+  position: absolute;
+  top: 2;
+  background-color: green;
+  left: 180px;
+}
+
+.header .navigation ul li ul li {
+  width: 100%;
+  
+}
+
+.header .navigation ul li:hover > ul {
+  display: initial;
+}
+
+
+
+#toggle ,
+.header label {
+    
+  display: none;
+  cursor: pointer;
+}
+
+
+
+@media(max-width: 950px) {
+  .header label {
+    display: initial;
+    
+  }
+
+  .header {
+    
+    padding: 20px 10%;
+  }
+
+  .header .navigation {
+    
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+  
+    background-color: blue;
+    display: none;
+  }
+
+  .header .navigation ul li {
+    
+    width: 100%;
+    
+  }
+
+  .header .navigation ul li a {
+    
+    padding: 8px 30px 8px 10%;
+  }
+
+  .header .navigation ul li ul {
+
+    position: relative;
+    width: 100%;
+    left: 0;
+    
+  }
+  
+  .header .navigation ul li ul li {
+    background: purple;
+  }
+
+  .header .navigation ul li ul li ul {
+    position: relative;
+    width: 100%;
+    left: 0;
+    
+  }
+
+
+
+  #toggle:checked ~ .navigation {
+    display: block;
+  }
+}
+
